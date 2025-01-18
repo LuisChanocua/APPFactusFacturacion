@@ -1,0 +1,16 @@
+﻿.main-container{
+  
+}
+
+.container-bill {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    max-width: 1000px;
+    gap: 40px;
+}
+
+.container-bill div{
+    display: flex;
+    flex-direction: column;
+}

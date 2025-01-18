@@ -1,0 +1,68 @@
+﻿@section styles {
+    <link href="~/css/lib/mainadmin.css" rel="stylesheet" />
+    <link href="~/css/lib/ui-grid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-ui-grid/ui-grid.min.css">
+    <link href="~/css/lib/angular-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/billscreated.css" rel="stylesheet" />
+}
+
+
+<section class="admin-dash_card" role="board" ng-controller="billsController as sp">
+    <section class="admin-title">
+        <h1 class="admin-h1">FACTURAS CREADAS</h1>
+    </section>
+    <section style="padding-top: 7px">
+        <div style="display: inline-grid;">
+            <span>Fecha inicial:</span>
+        </div>
+        <div style="display: inline-grid;">
+            <datepicker date-format="yyyy-MM-dd" date-set="{{sp.FechaInicial}}">
+                <input ng-model="fechaInicial" type="text" />
+            </datepicker>
+        </div>
+        <div style="display: inline-grid;">
+            <span style="margin-left: 25px;">Fecha Final:</span>
+        </div>
+        <div style="display: inline-grid;">
+            <datepicker date-format="yyyy-MM-dd" date-set="{{sp.fechaFinal}}">
+                <input ng-model="fechaFinal" type="text" style="margin-right: 25px;" />
+            </datepicker>
+        </div>
+        <div style="display: inline" ng-if="!sp.dowloading" ng-click="sp.downloadReport()">
+            <label for="file-upload"
+                   class="custom-file-upload admin-butt admin-butt--line admin-butt--blue">
+                <i class="fa fa-cloud-download"></i> Descargar Reporte
+            </label>
+        </div>
+        <div style="display: inline" ng-if="sp.dowloading">
+            <label for="file-upload"
+                   class="custom-file-upload admin-butt admin-butt--line admin-butt--blue">
+                <i class="fa fa-cloud-download"></i> Descargando Reporte Espera un momento.
+            </label>
+        </div>
+    </section>
+    <section class="admin-cupon admin-cupon--report">
+        <div ui-grid="sp.dataGrid" ui-grid-selection ui-grid-pagination ui-grid-exporter class="myGrid"></div>
+    </section>
+</section>
+
+@section scripts {
+    <!--angular js core scripts-->
+    <script src="~/js/angularapp/angularjs/angular.js"></script>
+    <script src="~/js/angularapp/dependencies/csv.js"></script>
+    <script src="~/js/angularapp/dependencies/pdfmake.js"></script>
+    <script src="~/js/angularapp/dependencies/vfs_fonts.js"></script>
+    <script src="~/js/angularapp/dependencies/xlsx.full.min.js"></script>
+    <script src="~/js/angularapp/dependencies/angular-datepicker.min.js"></script>
+    <script src="~/js/angularapp/dependencies/select2.min.js"></script>
+    <script src="~/js/angularapp/dependencies/select2-es.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-ui-grid@4.8.5/ui-grid.min.js"></script>
+
+
+    <!--angular app-->
+    <script src="~/js/angularapp/app.js"></script>
+    <script src="~/js/angularapp/services/maincloud.service.js"></script>
+
+    <script src="~/js/angularapp/controllers/bills.controller.js"></script>
+    <script src="~/js/angularapp/services/exportuigrid.service.js"></script>
+}

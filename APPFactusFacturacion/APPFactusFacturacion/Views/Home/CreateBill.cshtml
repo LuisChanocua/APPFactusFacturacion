@@ -1,0 +1,32 @@
+﻿@section styles {
+    <link href="~/css/createabill.css" rel="stylesheet" />
+}
+
+<h1 class="text-center">Create a Bill</h1>
+<main class="main">
+    <div class="main-container d-flex flex-column justify-content-center p-5">
+        <h2 class="text-center">Bill information</h2>
+        <div class="container-bill">
+
+            <div>
+                <label for="numbering_range_id">Range</label>
+                <select class="" id="numbering_range_id" name="numbering_range_id">
+                </select>
+            </div>
+            <div>
+                <label for="reference_code">Reference Code</label>
+                <input id="reference_code" name="reference_code" />
+            </div>
+            <div>
+                <label for="observation">Some Observation</label>
+                <textarea id="observation" name="observation"></textarea>
+            </div>
+        </div>
+        <h2 class="text-center">Customer information</h2>
+        <div class="container-customer">
+        </div>
+        <h2 class="text-center">Products information</h2>
+        <div class="container-products">
+        </div>
+    </div>
+</main>
