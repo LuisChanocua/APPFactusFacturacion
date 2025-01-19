@@ -4,6 +4,8 @@ using APPFactusFacturacion.Models;
 using APPFactusFacturacion.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using APPFactusFacturacion.Comon;
+using APPFactusFacturacion.Services;
+using APPFactusFacturacion.Services.Interfaces;
 
 namespace APPFactusFacturacion.Controllers
 {
@@ -11,9 +13,9 @@ namespace APPFactusFacturacion.Controllers
     {
         private readonly UserManager<ProfileUser> _userManager;
         private readonly SignInManager<ProfileUser> _signInManager;
-        private readonly AESCrypto256 _aESCrypto256;
+        private readonly IAESCrypto256 _aESCrypto256;
 
-        public AccountController(UserManager<ProfileUser> userManager, SignInManager<ProfileUser> signInManager, AESCrypto256 aESCrypto256)
+        public AccountController(UserManager<ProfileUser> userManager, SignInManager<ProfileUser> signInManager, IAESCrypto256 aESCrypto256)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,19 +40,18 @@ namespace APPFactusFacturacion.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    FirstName = _aESCrypto256.Encrypt(model.FirstName),
+                    LastName = _aESCrypto256.Encrypt(model.LastName),
                     CreatedAt = DateTime.Now
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // Asignar el rol predeterminado "Usuario"
                     await _userManager.AddToRoleAsync(user, "Usuario");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("facturascreadas");
                 }
 
                 foreach (var error in result.Errors)
@@ -83,7 +84,7 @@ namespace APPFactusFacturacion.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return !string.IsNullOrEmpty(returnUrl) ? Redirect(returnUrl) : RedirectToAction("Index", "Home");
+                    return !string.IsNullOrEmpty(returnUrl) ? Redirect(returnUrl) : Redirect("facturascreadas");
                 }
 
                 if (result.IsLockedOut)

@@ -1,32 +1,193 @@
-﻿@section styles {
+﻿@model APPFactusFacturacion.Models.InvoiceViewModel
+
+@section styles {
     <link href="~/css/createabill.css" rel="stylesheet" />
 }
 
-<h1 class="text-center">Create a Bill</h1>
-<main class="main">
-    <div class="main-container d-flex flex-column justify-content-center p-5">
-        <h2 class="text-center">Bill information</h2>
-        <div class="container-bill">
+<section class="admin-dash_card" role="board">
 
-            <div>
-                <label for="numbering_range_id">Range</label>
-                <select class="" id="numbering_range_id" name="numbering_range_id">
-                </select>
-            </div>
-            <div>
-                <label for="reference_code">Reference Code</label>
-                <input id="reference_code" name="reference_code" />
-            </div>
-            <div>
-                <label for="observation">Some Observation</label>
-                <textarea id="observation" name="observation"></textarea>
-            </div>
+    <section class="admin-title">
+        <h1 class="admin-h1">CREAR FACTURA</h1>
+    </section>
+
+    <form class="form-log" asp-action="CreateBill" method="post">
+        <!-- Datos principales -->
+        <div class="group">
+            <input asp-for="ReferenceCode" class="input-form" type="text" required>
+            <span class="highlight"></span><span class="bar"></span>
+            <label asp-for="ReferenceCode" class="label-form">Código de referencia</label>
         </div>
-        <h2 class="text-center">Customer information</h2>
-        <div class="container-customer">
+        <div class="group">
+            <textarea asp-for="Observation" class="input-form"></textarea>
+            <span class="highlight"></span><span class="bar"></span>
+            <label asp-for="Observation" class="label-form">Observaciones</label>
         </div>
-        <h2 class="text-center">Products information</h2>
-        <div class="container-products">
+        <div class="group">
+            <input asp-for="PaymentForm" class="input-form" type="text" value="1" required>
+            <span class="highlight"></span><span class="bar"></span>
+            <label asp-for="PaymentForm" class="label-form">Forma de pago</label>
         </div>
-    </div>
-</main>
+        <div class="group">
+            <input asp-for="PaymentDueDate" class="input-form" type="text" required>
+            <span class="highlight"></span><span class="bar"></span>
+            <label asp-for="PaymentDueDate" class="label-form">Fecha de vencimiento</label>
+        </div>
+        <div class="group">
+            <input asp-for="PaymentMethodCode" class="input-form" type="text" value="10" required>
+            <span class="highlight"></span><span class="bar"></span>
+            <label asp-for="PaymentMethodCode" class="label-form">Código de método de pago</label>
+        </div>
+
+        <!-- Periodo de facturación -->
+        <fieldset>
+            <legend>Periodo de Facturación</legend>
+            <div class="group">
+                <input asp-for="BillingPeriod.StartDate" class="input-form" type="text" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="BillingPeriod.StartDate" class="label-form">Fecha de inicio</label>
+            </div>
+            <div class="group">
+                <input asp-for="BillingPeriod.StartTime" class="input-form" type="text" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="BillingPeriod.StartTime" class="label-form">Hora de inicio</label>
+            </div>
+            <div class="group">
+                <input asp-for="BillingPeriod.EndDate" class="input-form" type="text" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="BillingPeriod.EndDate" class="label-form">Fecha de fin</label>
+            </div>
+            <div class="group">
+                <input asp-for="BillingPeriod.EndTime" class="input-form" type="text" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="BillingPeriod.EndTime" class="label-form">Hora de fin</label>
+            </div>
+        </fieldset>
+
+        <!-- Información del cliente -->
+        <fieldset>
+            <legend>Información del Cliente</legend>
+            <div class="group">
+                <input asp-for="Customer.Identification" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Identification" class="label-form">Identificación</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.Dv" class="input-form">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Dv" class="label-form">DV</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.Names" class="input-form">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Names" class="label-form">Nombres</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.Address" class="input-form">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Address" class="label-form">Dirección</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.Email" class="input-form" type="email">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Email" class="label-form">Email</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.Phone" class="input-form" type="tel">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Phone" class="label-form">Teléfono</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.LegalOrganizationId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.LegalOrganizationId" class="label-form">ID Organización</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.TributeId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.TributeId" class="label-form">ID Tributo</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.IdentificationDocumentId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.IdentificationDocumentId" class="label-form">ID Documento</label>
+            </div>
+            <div class="group">
+                <input asp-for="Customer.MunicipalityId" class="input-form">
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.MunicipalityId" class="label-form">Municipio</label>
+            </div>
+            <div class="group">
+                <textarea asp-for="Customer.Company" class="input-form"></textarea>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.Company" class="label-form">Company</label>
+            </div>
+            <div class="group">
+                <textarea asp-for="Customer.TradeName" class="input-form"></textarea>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Customer.TradeName" class="label-form">TradeName</label>
+            </div>
+        </fieldset>
+
+        <!-- Productos -->
+        <fieldset>
+            <legend>Producto</legend>
+            <div class="group">
+                <input asp-for="Items[0].CodeReference" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].CodeReference" class="label-form">Código del producto</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].Name" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].Name" class="label-form">Nombre del producto</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].Quantity" class="input-form" type="number" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].Quantity" class="label-form">Cantidad</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].Price" class="input-form" type="number" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].Price" class="label-form">Precio</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].DiscountRate" class="input-form" type="number" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].DiscountRate" class="label-form">Descuento</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].TaxRate" class="input-form" type="text" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].TaxRate" class="label-form">Impuesto</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].UnitMeasureId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].UnitMeasureId" class="label-form">Unidad de medida</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].StandardCodeId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].StandardCodeId" class="label-form">Código estándar</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].IsExcluded" class="input-form" type="number" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].IsExcluded" class="label-form">Exento de IVA</label>
+            </div>
+            <div class="group">
+                <input asp-for="Items[0].TributeId" class="input-form" required>
+                <span class="highlight"></span><span class="bar"></span>
+                <label asp-for="Items[0].TributeId" class="label-form">ID Tributo</label>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="button buttonBlue">Crear Factura</button>
+    </form>
+
+</section>
+
+@section scripts {
+    @* <script src="~/js/createbill.js"></script> *@
+}

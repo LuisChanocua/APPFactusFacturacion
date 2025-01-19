@@ -1,18 +1,37 @@
 ﻿@model APPFactusFacturacion.Models.LoginViewModel
 
-<h2>Login</h2>
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
+@section styles {
+    <link href="~/css/login.css" rel="stylesheet" />
+}
+
+<hgroup>
+    <h1>Login</h1>
+</hgroup>
+<form class="form-log" asp-action="Login" method="post">
+    <div class="group">
+        <input asp-for="Email" class="input-form" type="email"><span class="highlight"></span><span class="bar"></span>
+        <label asp-for="Email" class="label-form">Username</label>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
+    <div class="group">
+        <input asp-for="Password" class="input-form" type="password"><span class="highlight"></span><span class="bar"></span>
+        <label asp-for="Password" class="label-form">Password</label>
     </div>
     <div>
         <label asp-for="RememberMe"></label>
         <input asp-for="RememberMe" type="checkbox" />
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" class="button buttonBlue">
+        Enter
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+    </button>
 </form>
+<footer>
+    <hgroup>
+        <span>Login Template Design Form</span>
+        <span>By Josh Adamous</span>
+    </hgroup>
+</footer>
+
+@section scripts {
+    <script src="~/js/login.js"></script>
+}

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace APPFactusFacturacion.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<ProfileUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

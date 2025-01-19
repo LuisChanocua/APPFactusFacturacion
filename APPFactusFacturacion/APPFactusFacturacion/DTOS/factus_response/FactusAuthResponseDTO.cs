@@ -1,6 +1,6 @@
 ﻿namespace APPFactusFacturacion.DTOS.factus_response
 {
-    public class FactusAuthResponse
+    public class FactusAuthResponseDTO
     {
         public string? token_type { get; set; }
         public int expires_in { get; set; }

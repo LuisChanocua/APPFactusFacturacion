@@ -27,7 +27,7 @@ builder.Services.AddHttpClient("FactusAPI", client =>
 });
 
 // Registro de servicios para FACTUS API
-builder.Services.AddScoped<IFactusAuth, FactusAuthService>();
+builder.Services.AddScoped<IFactus, FactusService>();
 builder.Services.AddTransient<AuthenticatedHttpClientHandlerService>();
 
 //Validations and Utilities Services
@@ -95,10 +95,10 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Autenticación automática al iniciar la aplicación
+//Autenticación FACTUS automática al iniciar la aplicación
 //using (var scope = app.Services.CreateScope())
 //{
-//    var authService = scope.ServiceProvider.GetRequiredService<IFactusAuth>();
+//    var authService = scope.ServiceProvider.GetRequiredService<IFactus>();
 //    var config = builder.Configuration.GetSection("ApiSettings");
 
 //    // Autenticarse con la API
@@ -122,6 +122,11 @@ app.UseAuthorization();
 
 #region ROUTES
 #region VIEWS
+app.MapControllerRoute(
+    name: "facturascreadas",
+    pattern: "facturascreadas",
+    defaults: new { controller = "Home", action = "Index" });
+
 app.MapControllerRoute(
     name: "crearfactura",
     pattern: "crearfactura",

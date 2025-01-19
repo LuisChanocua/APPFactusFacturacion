@@ -26,8 +26,8 @@ h3 {
 }
 
 .form-log {
-    max-width: 1000px;
-    /* margin: 4em auto; */
+    width: 380px;
+    margin: 4em auto;
     padding: 3em 2em 2em 2em;
     background: #fafafa;
     border: 1px solid #ebebeb;
@@ -59,7 +59,7 @@ h3 {
 
 /* Label */
 
-.label-form {
+.label-form{
     color: #999;
     font-size: 18px;
     font-weight: normal;

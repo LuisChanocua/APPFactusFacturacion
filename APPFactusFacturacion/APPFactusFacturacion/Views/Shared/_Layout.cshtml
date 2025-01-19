@@ -9,45 +9,48 @@
 
     <!--Styles-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css" rel="stylesheet">
-
+    <link href="~/css/lib/mainadmin.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
 </head>
 <body>
-
-    @{
-        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
-    }
-
-    @if (controller == "Home")
-    {
+    <main class="admin-global">
         <header>
             <nav class="admin-nav">
                 <section class="admin-nav_prof">
                     <h2 class="admin-h2 text-uppercase">Creador de facturas <span class="admin-p">Power by Factus - Haltec&reg;</span></h2>
                 </section>
                 <section class="admin-nav_tab">
-                    <a class="admin-nav_opt" href="~/">
-                        <span class="admin-p">Facturas Creadas</span>
-                    </a>
-                    <a class="admin-nav_opt" href="~/crearfactura">
-                        <span class="admin-p">Crear Factura</span>
-                    </a>
-                </section>
-
-                <section class="admin-nav_logout">
-                    @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.AntiForgeryToken()
-                        <a class="admin-nav_opt" href=" javascript:document.getElementById('logoutForm').submit()">
-                            <span class="admin-p">CERRAR SESIÓN</span>
+                        <a class="admin-nav_opt" href="~/facturascreadas">
+                            <span class="admin-p">Facturas Creadas</span>
                         </a>
+                        <a class="admin-nav_opt" href="~/crearfactura">
+                            <span class="admin-p">Crear Factura</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="admin-nav_opt" href="~/">
+                            <span class="admin-p">Login</span>
+                        </a>                   
                     }
                 </section>
 
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <section class="admin-nav_logout">
+                        @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a class="admin-nav_opt" href=" javascript:document.getElementById('logoutForm').submit()">
+                                <span class="admin-p">CERRAR SESIÓN</span>
+                            </a>
+                        }
+                    </section>
+                }
             </nav>
         </header>
-    }
-    <main class="admin-global">
         <section class="admin-dash">
             @RenderBody()
         </section>

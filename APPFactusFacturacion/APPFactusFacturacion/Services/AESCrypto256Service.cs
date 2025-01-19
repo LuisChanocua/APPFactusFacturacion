@@ -8,13 +8,8 @@ namespace APPFactusFacturacion.Services
     {
         private readonly string Key; // Leer clave exactos para AES-256)
 
-        public AESCrypto256Service()
+        public AESCrypto256Service(IConfiguration configuration)
         {
-            var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .Build();
-
             Key = configuration["KeyValues:Key256"];
         }
 

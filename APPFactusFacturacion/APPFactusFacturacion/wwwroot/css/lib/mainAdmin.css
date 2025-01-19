@@ -1504,7 +1504,7 @@ input[type="email"], input[type="number"], input[type="password"], input[type="s
     font-family: "Roboto Condensed", sans-serif;
     font-size: 0.875em;
     font-weight: 700;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     height: 3em;
     display: inline-block;
     text-align: center;
