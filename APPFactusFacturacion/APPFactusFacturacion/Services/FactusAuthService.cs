@@ -7,12 +7,12 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace APPFactusFacturacion.Services
 {
-    public class FactusService : IFactus
+    public class FactusAuthService : IFactusAuth
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
 
-        public FactusService(IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        public FactusAuthService(IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _httpClient = httpClientFactory.CreateClient("FactusAPI");
             _cache = cache;
@@ -87,7 +87,7 @@ namespace APPFactusFacturacion.Services
             return result;
         }
 
-        public async Task<InvoiceResponseDTO> RegisterInvoiceAsync(InvoiceRequestDTO invoiceRequest)
+        public async Task<FactusInvoiceResponseDTO> RegisterInvoiceAsync(FactusInvoiceRequestDTO invoiceRequest)
         {
             try
             {
@@ -102,16 +102,16 @@ namespace APPFactusFacturacion.Services
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorMessage = await response.Content.ReadAsStringAsync();
-                    return new InvoiceResponseDTO
+                    return new FactusInvoiceResponseDTO
                     {
                         success = false,
                         errors = new List<string> { errorMessage }
                     };
                 }
 
-                var apiResponse = await response.Content.ReadFromJsonAsync<InvoiceResponseDTO>();
+                var apiResponse = await response.Content.ReadFromJsonAsync<FactusInvoiceResponseDTO>();
 
-                return new InvoiceResponseDTO
+                return new FactusInvoiceResponseDTO
                 {
                     success = true,
                     data = apiResponse.data
@@ -127,7 +127,7 @@ namespace APPFactusFacturacion.Services
             {
                 Debug.WriteLine(ex);
             }
-            return new InvoiceResponseDTO
+            return new FactusInvoiceResponseDTO
             {
                 success = false
             };

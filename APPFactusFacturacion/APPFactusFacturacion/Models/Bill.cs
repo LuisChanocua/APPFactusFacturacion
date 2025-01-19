@@ -7,9 +7,15 @@ public partial class Bill
 {
     public int BillId { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public int BillIdFactus { get; set; }
 
-    public string BillLink { get; set; } = null!;
+    public string NumberFactus {  get; set; } = null!;
+
+    public string ReferenceCodeFactus {  get; set; } = null!;
+
+    public string CufeFactus {  get; set; } = null!;
+
+    public DateTime? CreatedAt { get; set; }
 
     public string UserId { get; set; }
     public virtual ProfileUser ProfileUser { get; set; } = null!;

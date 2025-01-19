@@ -3,11 +3,11 @@ using APPFactusFacturacion.DTOS.factus_response;
 
 namespace APPFactusFacturacion.Services.Interfaces
 {
-    public interface IFactus
+    public interface IFactusAuth
     {
         Task<FactusAuthResponseDTO> AuthenticateAsync(string clientId, string clientSecret, string username, string password);
         Task<string> GetAccessTokenAsync();
         Task<FactusAuthResponseDTO> RefreshTokenAsync();
-        Task<InvoiceResponseDTO> RegisterInvoiceAsync(InvoiceRequestDTO invoiceRequest);
+        Task<FactusInvoiceResponseDTO> RegisterInvoiceAsync(FactusInvoiceRequestDTO invoiceRequest);
     }
 }

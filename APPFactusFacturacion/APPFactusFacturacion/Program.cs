@@ -27,11 +27,12 @@ builder.Services.AddHttpClient("FactusAPI", client =>
 });
 
 // Registro de servicios para FACTUS API
-builder.Services.AddScoped<IFactus, FactusService>();
+builder.Services.AddScoped<IFactusAuth, FactusAuthService>();
 builder.Services.AddTransient<AuthenticatedHttpClientHandlerService>();
 
 //Validations and Utilities Services
 builder.Services.AddScoped<IAESCrypto256, AESCrypto256Service>();
+builder.Services.AddScoped<IUser, UserService>();
 
 //using Newtonsoft;
 builder.Services.AddControllers()
@@ -98,7 +99,7 @@ using (var scope = app.Services.CreateScope())
 //Autenticación FACTUS automática al iniciar la aplicación
 //using (var scope = app.Services.CreateScope())
 //{
-//    var authService = scope.ServiceProvider.GetRequiredService<IFactus>();
+//    var authService = scope.ServiceProvider.GetRequiredService<IFactusAuth>();
 //    var config = builder.Configuration.GetSection("ApiSettings");
 
 //    // Autenticarse con la API

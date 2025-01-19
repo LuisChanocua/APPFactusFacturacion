@@ -1,6 +1,6 @@
 ﻿namespace APPFactusFacturacion.DTOS.factus_response
 {
-    public class InvoiceResponseDTO
+    public class FactusInvoiceResponseDTO
     {
         public bool success { get; set; }
         public string message { get; set; }

@@ -66,7 +66,7 @@ namespace APPFactusFacturacion.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -134,7 +134,7 @@ namespace APPFactusFacturacion.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -247,13 +247,13 @@ namespace APPFactusFacturacion.Migrations
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("name")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasKey("UserId", "LoginProvider", "name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });

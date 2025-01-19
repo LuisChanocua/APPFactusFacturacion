@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using APPFactusFacturacion.Comon;
 using APPFactusFacturacion.Services;
 using APPFactusFacturacion.Services.Interfaces;
+using APPFactusFacturacion.DTOS.models;
 
 namespace APPFactusFacturacion.Controllers
 {

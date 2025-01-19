@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace APPFactusFacturacion.Models
+namespace APPFactusFacturacion.DTOS.models
 {
     public class RegisterViewModel
     {
