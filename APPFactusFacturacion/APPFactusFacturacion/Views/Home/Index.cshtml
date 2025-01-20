@@ -1,7 +1,4 @@
-﻿@section styles {    
-    <link href="~/css/lib/ui-grid.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-ui-grid/ui-grid.min.css">
-    <link href="~/css/lib/angular-datepicker.min.css" rel="stylesheet" />
+﻿@section styles {       
     <link href="~/css/billscreated.css" rel="stylesheet" />
 }
 
@@ -40,28 +37,24 @@
             </label>
         </div>
     </section>
-    <section class="admin-cupon admin-cupon--report">
+    <section class="grid-facturas">
         <div ui-grid="sp.dataGrid" ui-grid-selection ui-grid-pagination ui-grid-exporter class="myGrid"></div>
     </section>
 </section>
 
 @section scripts {
     <!--angular js core scripts-->
-    <script src="~/js/angularapp/angularjs/angular.js"></script>
     <script src="~/js/angularapp/dependencies/csv.js"></script>
     <script src="~/js/angularapp/dependencies/pdfmake.js"></script>
     <script src="~/js/angularapp/dependencies/vfs_fonts.js"></script>
     <script src="~/js/angularapp/dependencies/xlsx.full.min.js"></script>
-    <script src="~/js/angularapp/dependencies/angular-datepicker.min.js"></script>
     <script src="~/js/angularapp/dependencies/select2.min.js"></script>
     <script src="~/js/angularapp/dependencies/select2-es.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/angular-ui-grid@4.8.5/ui-grid.min.js"></script>
 
 
     <!--angular app-->
-    <script src="~/js/angularapp/app.js"></script>
     <script src="~/js/angularapp/services/maincloud.service.js"></script>
+    <script src="~/js/angularapp/services/exportuigrid.service.js"></script>
 
     <script src="~/js/angularapp/controllers/bills.controller.js"></script>
-    <script src="~/js/angularapp/services/exportuigrid.service.js"></script>
 }

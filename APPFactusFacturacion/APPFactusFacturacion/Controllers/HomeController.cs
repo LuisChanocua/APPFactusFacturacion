@@ -17,7 +17,7 @@ using APPFactusFacturacion.DTOS.models;
 
 namespace APPFactusFacturacion.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

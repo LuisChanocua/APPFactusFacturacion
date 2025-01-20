@@ -1,21 +1,20 @@
 Mini Invoice System using the Factus API from Haltec
-
-----------TechStack----------
-Backend:
+----------TechStack---------- 
+Backend: 
 .Net Core Framework
 EntityFrameworkCore (ORM)
 ASP.Indentity (User Sessions)
 MVC - Services
-IMemoryCache
-Filters
-
+IMemoryCache Filters
 All the API is consumed by the backend for better security
 
-Frontend
+
+
+Frontend 
 Razor Pages
 BootStrap
-jQuery & JS
-Angular JS
+jQuery & JSAngular JS
+
 
 Database
 SQL Server

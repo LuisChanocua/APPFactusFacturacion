@@ -1,9 +1,15 @@
 ﻿@charset "UTF-8";
-/* ==========================================================================
-   SNICKERS CSS
-   ========================================================================== */
 @import url("https://fonts.googleapis.com/css?family=Rubik:900");
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700");
+
+:root {
+    --black-main: #0000009c;
+    --black-bold: #000000c2;
+}
+
+.ui-grid-menu-button {
+    background-color: var(--black-main);
+}
 
 @-webkit-keyframes fadeInDown {
     from {
@@ -529,14 +535,14 @@ i {
 .admin-h1 {
     font-family: "Rubik", sans-serif;
     font-size: 1.5em;
-    color: #000000;
+    color: white;
     letter-spacing: 0;
 }
 
 .admin-h2 {
     font-family: "Rubik", sans-serif;
     font-size: 1em;
-    color: #000000;
+    color: white;
     letter-spacing: 0;
 }
 
@@ -580,17 +586,19 @@ i {
     height: 100vh;
     padding: 1em;
     overflow-y: auto;
+    background-color: var(--black-main);
 }
 
 .admin-dash_card {
-    background-color: #fff;
-    height: 120%;
+    background-color: var(--black-main);
+    height: 100%;
     width: 100%;
     position: relative;
     -webkit-box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
     box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
     border-radius: 6px;
     padding: 80px 16px 16px;
+    color: white;
 }
 
 /* ==========================================================================
@@ -600,7 +608,7 @@ i {
     display: inline-block;
     width: 20em;
     height: 100vh;
-    background-color: #fff;
+    background-color: var(--black-bold);
     -webkit-box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.05);
     box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.05);
     position: relative;
@@ -685,7 +693,7 @@ i {
     }
 
     .admin-nav_opt .admin-p, .admin-nav_opt .admin-checkb_lbl {
-        color: #000000;
+        color: white;
     }
 
 .admin-nav_ico {
@@ -1090,7 +1098,7 @@ input[type="file"] {
 
 .admin-title {
     padding: 0 1.5em;
-    background: #fff;
+    background-color: var(--black-main);
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
     border-radius: 6px 6px 0 0;

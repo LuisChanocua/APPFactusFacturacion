@@ -3,6 +3,7 @@ using APPFactusFacturacion.DTOS.factus_request;
 using APPFactusFacturacion.DTOS.factus_response;
 using APPFactusFacturacion.Models;
 using APPFactusFacturacion.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -24,6 +25,7 @@ namespace APPFactusFacturacion.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateBill(FactusInvoiceRequestDTO model)

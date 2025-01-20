@@ -26,7 +26,7 @@ h3 {
 }
 
 .form-log {
-    max-width: 1000px;
+    max-width: 1600px;
     /* margin: 4em auto; */
     padding: 3em 2em 2em 2em;
     background: #fafafa;
@@ -36,7 +36,7 @@ h3 {
 
 .group {
     position: relative;
-    margin-bottom: 45px;
+    margin-bottom: 10px;
 }
 
 .input-form {
@@ -136,8 +136,15 @@ h3 {
 }
 
 
-/* Animations */
+/* dgrid 2 */
+.fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+}
 
+
+/* Animations */
 @keyframes inputHighlighter {
     from {
         background: #4a89dc;

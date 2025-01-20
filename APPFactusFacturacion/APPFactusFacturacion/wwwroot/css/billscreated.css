@@ -1,3 +1,7 @@
-﻿.myGrid{
+﻿.myGrid {
     height: 50% !important;
+}
+
+.grid-facturas {
+    height: 100%;
 }

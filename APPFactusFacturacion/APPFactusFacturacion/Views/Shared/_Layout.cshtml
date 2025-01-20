@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <!--Styles-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css" rel="stylesheet">
+
     <link href="~/css/lib/mainadmin.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0-beta.9/ng-table.min.css">
+    <link href="~/css/lib/ui-grid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-ui-grid/ui-grid.min.css">
+    <link href="~/css/lib/angular-datepicker.min.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -60,6 +65,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0-beta.9/ng-table.min.js"></script>
+    <script src="~/js/angularapp/dependencies/angular-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/angular-ui-grid@4.8.5/ui-grid.min.js"></script>
+
+    <script src="~/js/angularapp/app.js"></script>
+  
     @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

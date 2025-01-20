@@ -2,6 +2,7 @@
 {
     public class FactusInvoiceRequestDTO
     {
+        public string numbering_range_id { get; set; }
         public string reference_code { get; set; }
         public string observation { get; set; }
         public string payment_form { get; set; }

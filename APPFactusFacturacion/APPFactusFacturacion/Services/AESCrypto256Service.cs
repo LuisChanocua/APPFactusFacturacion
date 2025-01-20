@@ -22,7 +22,7 @@ namespace APPFactusFacturacion.Services
 
             using (Aes aes = Aes.Create())
             {
-                aes.KeySize = 128;
+                aes.KeySize = 256;
                 aes.Key = Encoding.UTF8.GetBytes(Key);
                 aes.IV = iv;
 
@@ -46,41 +46,29 @@ namespace APPFactusFacturacion.Services
 
         public string Decrypt(string cipherText)
         {
-            if (string.IsNullOrEmpty(cipherText))
-                return null;
+            if (string.IsNullOrEmpty(cipherText)) return null;
 
-            try
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(cipherText);
+
+            using (Aes aes = Aes.Create())
             {
-                byte[] iv = new byte[16];
-                byte[] buffer = Convert.FromBase64String(cipherText);
+                aes.KeySize = 256;
+                aes.Key = Encoding.UTF8.GetBytes(Key);
+                aes.IV = iv;
 
-                using (Aes aes = Aes.Create())
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
                 {
-                    aes.KeySize = 128;
-                    aes.Key = Encoding.UTF8.GetBytes(Key);
-                    aes.IV = iv;
-
-                    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                    using (MemoryStream memoryStream = new MemoryStream(buffer))
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                        using (StreamReader streamReader = new StreamReader(cryptoStream))
                         {
-                            using (StreamReader streamReader = new StreamReader(cryptoStream))
-                            {
-                                return streamReader.ReadToEnd();
-                            }
+                            return streamReader.ReadToEnd();
                         }
                     }
                 }
-            }
-            catch (FormatException)
-            {
-                throw new FormatException("The cipherText is not in a valid Base64 format.");
-            }
-            catch (CryptographicException)
-            {
-                throw new CryptographicException("Decryption failed. Please check the encryption key and cipherText.");
             }
         }
     }
