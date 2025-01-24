@@ -15,7 +15,7 @@ public partial class Bill
 
     public string CufeFactus {  get; set; } = null!;
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public string UserId { get; set; }
     public virtual ProfileUser ProfileUser { get; set; } = null!;

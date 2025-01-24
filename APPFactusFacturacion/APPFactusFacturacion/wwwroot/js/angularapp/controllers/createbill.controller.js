@@ -3,12 +3,18 @@
 
     angular.module('angularApp').controller('createbillController', createbillController);
 
-    createbillController.$inject = ['NgTableParams', '$scope'];
+    createbillController.$inject = ['NgTableParams', '$scope', 'cloud'];
 
-    function createbillController(NgTableParams, $scope) {
+    function createbillController(NgTableParams, $scope, cloud) {
+        var sp = this;
+        sp.lang = 'es';
+        sp.getMunicipalities = getMunicipalities();
         $scope.invoice = {
             items: []
         };
+
+        sp.municipalities = [];
+        //getMunicipalities();
 
         $scope.tableParams = new NgTableParams({}, { dataset: $scope.invoice.items });
 
@@ -25,8 +31,6 @@
                 is_excluded: '',
                 tribute_id: ''
             });
-
-            console.log($scope.invoice.items);
             $scope.tableParams.reload();
         };
 
@@ -39,5 +43,14 @@
         };
 
         $scope.addItem();
+
+        function getMunicipalities() {
+            cloud.getMunicipalities().then(function (response) {
+                sp.municipalities = response.data;
+            }).catch(function (error) {
+                console.error('Error al cargar municipios:', error);
+            });
+        }
+
     }
 })();

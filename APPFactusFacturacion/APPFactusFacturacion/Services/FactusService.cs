@@ -7,16 +7,19 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace APPFactusFacturacion.Services
 {
-    public class FactusAuthService : IFactusAuth
+    public class FactusService : IFactus
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
 
-        public FactusAuthService(IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        public FactusService(IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _httpClient = httpClientFactory.CreateClient("FactusAPI");
             _cache = cache;
         }
+
+
+        #region AUTH
 
         public async Task<FactusAuthResponseDTO> AuthenticateAsync(string clientId, string clientSecret, string username, string password)
         {
@@ -57,6 +60,7 @@ namespace APPFactusFacturacion.Services
             return accessToken;
         }
 
+
         public async Task<FactusAuthResponseDTO> RefreshTokenAsync()
         {
             if (!_cache.TryGetValue("RefreshToken", out string refreshToken))
@@ -86,7 +90,9 @@ namespace APPFactusFacturacion.Services
 
             return result;
         }
+        #endregion
 
+        #region API
         public async Task<FactusInvoiceResponseDTO> RegisterInvoiceAsync(FactusInvoiceRequestDTO invoiceRequest)
         {
             try
@@ -132,6 +138,51 @@ namespace APPFactusFacturacion.Services
                 success = false
             };
         }
+
+        public async Task<FactusMunicipalitiesResponseDTO> GetMunicipalities()
+        {
+            try
+            {
+                var accessToken = await GetAccessTokenAsync();
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                var response = await _httpClient.GetAsync("v1/municipalities");
+                Debug.WriteLine(response);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    return new FactusMunicipalitiesResponseDTO
+                    {
+                        success = false,
+                        errors = new List<string> { errorMessage }
+                    };
+                }
+
+                var apiResponse = await response.Content.ReadFromJsonAsync<FactusMunicipalitiesResponseDTO>();
+
+                return new FactusMunicipalitiesResponseDTO
+                {
+                    success = true,
+                    data = apiResponse.data
+                };
+
+            }
+            catch (TypeLoadException ex)
+            {
+                Debug.WriteLine($"Error al cargar el tipo: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            return new FactusMunicipalitiesResponseDTO
+            {
+                success = false
+            };
+        }
+        #endregion
 
     }
 }

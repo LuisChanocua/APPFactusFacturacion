@@ -14,8 +14,8 @@
         <h2>Datos de Factura</h2>
         <fieldset class="fieldset">
             <div class="group">
-                <select asp-for="numbering_range_id" class="input-form" type="text" required>
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
+                <select id="numbering_range_id" asp-for="numbering_range_id" class="input-form" type="text" required>
+                    <!--Estáticos en lo que hacemos endpoints para trar los de la API  (Rangos Numeración/Rangos)-->
                     <option value="8">Nota de crédito</option>
                     <option value="9">Factura de contado</option>
                 </select>
@@ -36,7 +36,7 @@
 
         <fieldset class="fieldset">
             <div class="group">
-                <select asp-for="payment_form" class="input-form" type="text" required>
+                <select id="payment_form" asp-for="payment_form" class="input-form" type="text" required>
                     <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
                     <option value="1">Contado</option>
                     <option value="2">Crédito</option>
@@ -50,7 +50,7 @@
                 <label asp-for="payment_due_date" class="label-form">Fecha de vencimiento*</label>
             </div>
             <div class="group">
-                <select asp-for="payment_method_code" class="input-form" type="text" required>
+                <select id="payment_method_code" asp-for="payment_method_code" class="input-form" type="text" required>
                     <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
                     <option value="10">Efectivo</option>
                 </select>
@@ -63,22 +63,22 @@
         <h2>Periodo de Facturación</h2>
         <fieldset class="fieldset">
             <div class="group">
-                <input asp-for="billing_period.start_date" class="input-form" type="date" required>
+                <input asp-for="billing_period.start_date" class="input-form" type="text" required>
                 <span class="highlight"></span><span class="bar"></span>
                 <label asp-for="billing_period.start_date" class="label-form">Fecha de inicio*</label>
             </div>
             <div class="group">
-                <input asp-for="billing_period.start_time" class="input-form" type="time" required>
+                <input asp-for="billing_period.start_time" class="input-form" type="text" required>
                 <span class="highlight"></span><span class="bar"></span>
                 <label asp-for="billing_period.start_time" class="label-form">Hora de inicio</label>
             </div>
             <div class="group">
-                <input asp-for="billing_period.end_date" class="input-form" type="date" required>
+                <input asp-for="billing_period.end_date" class="input-form" type="text" required>
                 <span class="highlight"></span><span class="bar"></span>
                 <label asp-for="billing_period.end_date" class="label-form">Fecha de fin*</label>
             </div>
             <div class="group">
-                <input asp-for="billing_period.end_time" class="input-form" type="time" required>
+                <input asp-for="billing_period.end_time" class="input-form" type="text" required>
                 <span class="highlight"></span><span class="bar"></span>
                 <label asp-for="billing_period.end_time" class="label-form">Hora de fin*</label>
             </div>
@@ -151,9 +151,12 @@
                 <label asp-for="customer.identification_document_id" class="label-form">ID Documento*</label>
             </div>
             <div class="group">
-                <select asp-for="customer.municipality_id" class="input-form">
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                    <option value="981">Huetamo</option>
+                <select id="municipality"
+                        asp-for="customer.municipality_id"
+                        class="input-form"
+                        ng-model="customer.municipality_id"
+                        ng-options="municipality.id as municipality.name for municipality in sp.municipalities">
+                    <option value="">-- Selecciona un municipio --</option>
                 </select>
                 <span class="highlight"></span><span class="bar"></span>
                 <label asp-for="customer.municipality_id" class="label-form">Municipio</label>
@@ -219,8 +222,8 @@
                         </td>
                         <td>
                             <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                            <select name="items[{{$index}}].tribute_id" ng-model="item.tribute_id" class="input-form" required>
-                                <option value="1">Tributo 1</option>
+                            <select name="items[{{$index}}].tribute_id" ng-model="item.tribute_id" id="tribute_id" class="input-form" required>
+                                <option value="1">IVA</option>
                             </select>
                         </td>
                         <td>
@@ -230,7 +233,7 @@
                 </tbody>
             </table>
             <button type="button" ng-click="addItem()" class="button buttonBlue">Añadir Producto</button>
-        </fieldset>       
+        </fieldset>
         <button type="submit" class="button buttonBlue">Crear Factura</button>
     </form>
 </section>

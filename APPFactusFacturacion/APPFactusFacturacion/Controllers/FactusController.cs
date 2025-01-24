@@ -14,15 +14,28 @@ namespace APPFactusFacturacion.Controllers
 {
     public class FactusController : Controller
     {
-        private readonly IFactusAuth _factusService;
+        private readonly IFactus _factusService;
         private readonly ApplicationDbContext _dBContext;
         private readonly IUser _userService;
 
-        public FactusController(IFactusAuth factusService, ApplicationDbContext dBContext, IUser userService)
+        public FactusController(IFactus factusService, ApplicationDbContext dBContext, IUser userService)
         {
             _factusService = factusService;
             _dBContext = dBContext;
             _userService = userService;
+        }
+
+        [HttpGet]
+        public async Task<FactusMunicipalitiesResponseDTO> GetMunicipalities()
+        {
+            var apiResponse = await _factusService.GetMunicipalities();
+
+            if (apiResponse == null || !apiResponse.success)
+            {
+                return new FactusMunicipalitiesResponseDTO { success = false, message = "Error al cargar los municipios", errors = apiResponse?.errors };
+            }
+
+            return apiResponse;
         }
 
         [Authorize]
@@ -55,10 +68,10 @@ namespace APPFactusFacturacion.Controllers
 
                 return Json(new { success = true, message = "Factura creada exitosamente" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { success = false, message = $"Error en factura factura creada exitosamente {ex.Message}" });
-            }           
+                return Json(new { success = false, message = $"Error en factura en el sistema, factura creada exitosamente en factus {ex.Message}" });
+            }
         }
     }
 }

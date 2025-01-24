@@ -10,10 +10,10 @@
 
     public class InvoiceDataDTO
     {
-        public BillDTO bill { get; set; }
+        public BillFactusDTO bill { get; set; }
     }
 
-    public class BillDTO
+    public class BillFactusDTO
     {
         public int id { get; set; }
         public string number { get; set; }

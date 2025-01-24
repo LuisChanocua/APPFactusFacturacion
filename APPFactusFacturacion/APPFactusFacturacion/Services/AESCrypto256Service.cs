@@ -6,7 +6,7 @@ namespace APPFactusFacturacion.Services
 {
     public class AESCrypto256Service : IAESCrypto256
     {
-        private readonly string Key; // Leer clave exactos para AES-256)
+        private readonly string Key;
 
         public AESCrypto256Service(IConfiguration configuration)
         {

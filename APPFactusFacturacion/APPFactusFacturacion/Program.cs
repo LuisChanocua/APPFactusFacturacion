@@ -27,12 +27,13 @@ builder.Services.AddHttpClient("FactusAPI", client =>
 });
 
 // Registro de servicios para FACTUS API
-builder.Services.AddScoped<IFactusAuth, FactusAuthService>();
+builder.Services.AddScoped<IFactus, FactusService>();
 builder.Services.AddTransient<AuthenticatedHttpClientHandlerService>();
 
 //Validations and Utilities Services
 builder.Services.AddScoped<IAESCrypto256, AESCrypto256Service>();
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IHome, HomeService>();
 
 //using Newtonsoft;
 builder.Services.AddControllers()
@@ -97,14 +98,14 @@ using (var scope = app.Services.CreateScope())
 }
 
 //Autenticación FACTUS automática al iniciar la aplicación
-//using (var scope = app.Services.CreateScope())
-//{
-//    var authService = scope.ServiceProvider.GetRequiredService<IFactusAuth>();
-//    var config = builder.Configuration.GetSection("ApiSettings");
+using (var scope = app.Services.CreateScope())
+{
+    var authService = scope.ServiceProvider.GetRequiredService<IFactus>();
+    var config = builder.Configuration.GetSection("ApiSettings");
 
-//    // Autenticarse con la API
-//    await authService.AuthenticateAsync(config["clientId"], config["clientSecret"], config["username"], config["password"]);
-//}
+    // Autenticarse con la API
+    await authService.AuthenticateAsync(config["clientId"], config["clientSecret"], config["username"], config["password"]);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -132,6 +133,18 @@ app.MapControllerRoute(
     name: "crearfactura",
     pattern: "crearfactura",
     defaults: new { controller = "Home", action = "CreateBill" });
+#endregion
+
+#region FACTUS APIS
+app.MapControllerRoute(
+    name: "api/getMunicipalities",
+    pattern: "api/getMunicipalities",
+    defaults: new { controller = "Factus", action = "GetMunicipalities" });
+
+app.MapControllerRoute(
+    name: "api/getBills",
+    pattern: "api/getBills",
+    defaults: new { controller = "Home", action = "GetBills" });
 #endregion
 
 app.MapControllerRoute(

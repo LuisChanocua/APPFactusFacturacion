@@ -341,6 +341,10 @@ a {
     cursor: pointer;
 }
 
+.admin-nav_opt:hover {
+    border-bottom: solid white 1px;
+}
+
 /**
  * Remove trailing margins from nested lists.
  */
@@ -558,16 +562,21 @@ i {
     font-size: 0.75em;
 }
 
+.admin-nav_tab {
+    display: flex;
+    gap: 15px;
+}
+
 /* ==========================================================================
   GLOBAL OBJECTS
 ========================================================================== */
 .admin-global {
     width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
     background-color: #fff;
-    display: -webkit-box;
+    /* display: -webkit-box; */
     display: -ms-flexbox;
-    display: flex;
+    /* display: flex; */
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
@@ -582,7 +591,7 @@ i {
 }
 
 .admin-dash {
-    width: calc(100vw - 20em);
+    /* width: calc(100vw - 20em); */
     height: 100vh;
     padding: 1em;
     overflow-y: auto;
@@ -591,7 +600,7 @@ i {
 
 .admin-dash_card {
     background-color: var(--black-main);
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     position: relative;
     -webkit-box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.02);
@@ -605,9 +614,11 @@ i {
   NAVIGATION OBJECT
 ========================================================================== */
 .admin-nav {
-    display: inline-block;
-    width: 20em;
-    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    /* height: 100vh; */
     background-color: var(--black-bold);
     -webkit-box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.05);
     box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.05);
@@ -615,10 +626,10 @@ i {
 }
 
 .admin-nav_logout {
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     left: 0;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .admin-nav_prof {
@@ -657,14 +668,14 @@ i {
     display: flex;
     padding: 1em 1em;
     text-decoration: none;
-    border-top: #f2f2f2 solid 1px;
+    border: none;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
-    position: relative;
+    /* position: relative; */
 }
 
     .admin-nav_opt:after {
@@ -689,7 +700,7 @@ i {
     }
 
     .admin-nav_opt:last-child {
-        border-bottom: #f2f2f2 solid 1px;
+        /* border-bottom: #f2f2f2 solid 1px; */
     }
 
     .admin-nav_opt .admin-p, .admin-nav_opt .admin-checkb_lbl {

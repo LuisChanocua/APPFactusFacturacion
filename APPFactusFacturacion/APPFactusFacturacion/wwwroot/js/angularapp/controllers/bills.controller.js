@@ -7,7 +7,7 @@
     function billsController($scope, cloud, exportUiGridService) {
         var sp = this;
         sp.lang = 'es';
-        sp.getReportG = getReportG;
+        sp.getBills = getBills();
         sp.dowloading = false;
         sp.downloadReport = downloadReport;
 
@@ -55,20 +55,25 @@
         //Grids
         sp.dataGrid = {
             columnDefs: [
-                { name: 'UsuarioId', field: 'ID' },
-                { name: 'Email', field: 'EMAIL' },
+                { name: 'Bill Id', field: 'billId' },
+                { name: 'User Id', field: 'userId' },
+                { name: 'CreatedAt', field: 'createdAt' },
+                { name: 'BillIdFactus', field: 'billIdFactus' },
+                { name: 'CufeFactus', field: 'cufeFactus' },
+                { name: 'NumberFactus', field: 'numberFactus' },
+                { name: 'ReferenceCodeFactus', field: 'referenceCodeFactus' },
                 {
                     name: 'Opciones',
                     cellTemplate: `
-                <div class="ui-grid-cell-contents">
-                    <button class="btn" ng-click="grid.appScope.verFactura(row.entity.EMAIL)"><i class="fa-solid fa-eye"></i></button>
-                </div>
-                `,
+                    <div class="ui-grid-cell-contents">
+                        <button class="btn" ng-click="grid.appScope.verFactura(row.entity.BillId)">
+                            <i class="fa-solid fa-eye"></i> Ver Factura
+                        </button>
+                    </div>
+                    `,
                     enableSorting: false,
                     width: 150,
-                    height: 50
-                },
-                
+                }
             ],
             enableGridMenu: true,
             enableSelectAll: true,
@@ -86,14 +91,6 @@
             }
             ]
         };
-
-        function getReportG() {
-            sp.dataGrid.data = [
-                { ID: 1, EMAIL: 'juan.perez@example.com' },
-                { ID: 2, EMAIL: 'ana.gomez@example.com' },
-                { ID: 3, EMAIL: 'carlos.lopez@example.com' }
-            ];
-        }
 
         function formatDate(date) {
             var d = new Date(date),
@@ -128,8 +125,15 @@
             });
         }
 
-
         //Test de data
-        getReportG();
+        function getBills() {
+            cloud.getBills().then(function (data) {
+                sp.dataGrid.data = data;
+            }).catch(function (error) {
+                console.error('Error al cargar las facturas:', error);
+            });
+        }
+
+        //getBills();
     };
 })();
