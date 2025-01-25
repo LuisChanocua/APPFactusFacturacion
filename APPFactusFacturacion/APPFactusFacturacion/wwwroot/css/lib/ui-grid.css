@@ -694,8 +694,8 @@ select.ui-grid-filter-select {
 
 @font-face {
     font-family: 'ui-grid';
-    src: url('fonts/ui-grid.eot');
-    src: url('fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('fonts/ui-grid.woff') format('woff'),url('fonts/ui-grid.ttf') format('truetype'),url('fonts/ui-grid.svg?#ui-grid') format('svg');
+    src: url('../../fonts/ui-grid.eot');
+    src: url('../../fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('../../fonts/ui-grid.woff') format('woff'),url('../../fonts/ui-grid.ttf') format('truetype'),url('../../fonts/ui-grid.svg?#ui-grid') format('svg');
     font-weight: normal;
     font-style: normal
 }
@@ -1595,9 +1595,7 @@ select.ui-grid-filter-select {
     position: relative;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    height: 100% !important;
-    !i;
-    !;
+    /* height: 100% !important; */
 }
 
     .ui-grid-viewport:focus {
@@ -1609,16 +1607,13 @@ select.ui-grid-filter-select {
     padding-top: 1px;
     min-height: 1px;
     background-color: black;
-    height: 100% !important;
-    !i;
-    !;
+    /* height: 100% !important; */
 }
 
 .ui-grid-row {
     clear: both;
     background-color: black;
-    /* height: 50px !important; */ !i;
-    !;
+    /* height: 50px !important; */
 }
 
     .ui-grid-row:nth-child(odd) .ui-grid-cell {
@@ -1920,8 +1915,8 @@ select.ui-grid-filter-select {
 
 @font-face {
     font-family: 'ui-grid';
-    src: url('fonts/ui-grid.eot');
-    src: url('fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('fonts/ui-grid.woff') format('woff'),url('fonts/ui-grid.ttf') format('truetype'),url('fonts/ui-grid.svg?#ui-grid') format('svg');
+    src: url('../../fonts/ui-grid.eot');
+    src: url('../../fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('../../fonts/ui-grid.woff') format('woff'),url('../../fonts/ui-grid.ttf') format('truetype'),url('../../fonts/ui-grid.svg?#ui-grid') format('svg');
     font-weight: normal;
     font-style: normal
 }
@@ -2617,8 +2612,8 @@ select.ui-grid-filter-select {
 
 @font-face {
     font-family: 'ui-grid';
-    src: url('fonts/ui-grid.eot');
-    src: url('fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('fonts/ui-grid.woff') format('woff'),url('fonts/ui-grid.ttf') format('truetype'),url('fonts/ui-grid.svg?#ui-grid') format('svg');
+    src: url('../../fonts/ui-grid.eot');
+    src: url('../../fonts/ui-grid.eot#iefix') format('embedded-opentype'),url('../../fonts/ui-grid.woff') format('woff'),url('../../fonts/ui-grid.ttf') format('truetype'),url('../../fonts/ui-grid.svg?#ui-grid') format('svg');
     font-weight: normal;
     font-style: normal
 }

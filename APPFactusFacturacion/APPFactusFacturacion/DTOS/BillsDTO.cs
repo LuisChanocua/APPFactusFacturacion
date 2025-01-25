@@ -1,4 +1,6 @@
-﻿namespace APPFactusFacturacion.DTOS
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace APPFactusFacturacion.DTOS
 {
     public class BillsDTO
     {
@@ -9,5 +11,8 @@
         public string BillIdFactus { get; set; }
         public string CufeFactus { get; set; }
         public string NumberFactus { get; set; }
+        public String ClientName { get; set; }
+        public String ClientEmail { get; set; }
+        public String ClientPhoneNumber { get; set; }
     }
 }

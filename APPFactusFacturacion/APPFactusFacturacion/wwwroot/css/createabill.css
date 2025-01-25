@@ -26,6 +26,7 @@ h3 {
 }
 
 .form-log {
+    width: 100%;
     max-width: 1600px;
     /* margin: 4em auto; */
     padding: 3em 2em 2em 2em;
@@ -227,6 +228,13 @@ h3 {
     animation: ripples .4s ease-in;
 }
 
+
+.container-createbill {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* max-width: 1000px; */
+}
 
 /* Ripples animation */
 

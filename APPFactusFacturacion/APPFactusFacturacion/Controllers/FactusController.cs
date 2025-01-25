@@ -17,12 +17,14 @@ namespace APPFactusFacturacion.Controllers
         private readonly IFactus _factusService;
         private readonly ApplicationDbContext _dBContext;
         private readonly IUser _userService;
+        private readonly IAESCrypto256 _aesCryptoService;
 
-        public FactusController(IFactus factusService, ApplicationDbContext dBContext, IUser userService)
+        public FactusController(IFactus factusService, ApplicationDbContext dBContext, IUser userService, IAESCrypto256 aesCryptoService)
         {
             _factusService = factusService;
             _dBContext = dBContext;
             _userService = userService;
+            _aesCryptoService = aesCryptoService;
         }
 
         [HttpGet]
@@ -56,6 +58,12 @@ namespace APPFactusFacturacion.Controllers
                 var newBill = new Bill
                 {
                     UserId = user.Id,
+
+                    ClientEmail = _aesCryptoService.Encrypt(model.customer.email),
+                    ClientName = _aesCryptoService.Encrypt(model.customer.names),
+                    ClientPhoneNumber = _aesCryptoService.Encrypt(model.customer.phone),
+                    
+
                     BillIdFactus = apiResponse.data.bill.id,
                     CufeFactus = apiResponse.data.bill.cufe,
                     NumberFactus = apiResponse.data.bill.number,
