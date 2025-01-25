@@ -14,15 +14,30 @@ namespace APPFactusFacturacion.Controllers
 {
     public class FactusController : Controller
     {
-        private readonly IFactusAuth _factusService;
+        private readonly IFactus _factusService;
         private readonly ApplicationDbContext _dBContext;
         private readonly IUser _userService;
+        private readonly IAESCrypto256 _aesCryptoService;
 
-        public FactusController(IFactusAuth factusService, ApplicationDbContext dBContext, IUser userService)
+        public FactusController(IFactus factusService, ApplicationDbContext dBContext, IUser userService, IAESCrypto256 aesCryptoService)
         {
             _factusService = factusService;
             _dBContext = dBContext;
             _userService = userService;
+            _aesCryptoService = aesCryptoService;
+        }
+
+        [HttpGet]
+        public async Task<FactusMunicipalitiesResponseDTO> GetMunicipalities()
+        {
+            var apiResponse = await _factusService.GetMunicipalities();
+
+            if (apiResponse == null || !apiResponse.success)
+            {
+                return new FactusMunicipalitiesResponseDTO { success = false, message = "Error al cargar los municipios", errors = apiResponse?.errors };
+            }
+
+            return apiResponse;
         }
 
         [Authorize]
@@ -43,6 +58,12 @@ namespace APPFactusFacturacion.Controllers
                 var newBill = new Bill
                 {
                     UserId = user.Id,
+
+                    ClientEmail = _aesCryptoService.Encrypt(model.customer.email),
+                    ClientName = _aesCryptoService.Encrypt(model.customer.names),
+                    ClientPhoneNumber = _aesCryptoService.Encrypt(model.customer.phone),
+                    
+
                     BillIdFactus = apiResponse.data.bill.id,
                     CufeFactus = apiResponse.data.bill.cufe,
                     NumberFactus = apiResponse.data.bill.number,
@@ -55,10 +76,10 @@ namespace APPFactusFacturacion.Controllers
 
                 return Json(new { success = true, message = "Factura creada exitosamente" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { success = false, message = $"Error en factura factura creada exitosamente {ex.Message}" });
-            }           
+                return Json(new { success = false, message = $"Error en factura en el sistema, factura creada exitosamente en factus {ex.Message}" });
+            }
         }
     }
 }

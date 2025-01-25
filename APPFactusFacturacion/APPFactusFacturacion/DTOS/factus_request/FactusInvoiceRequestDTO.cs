@@ -6,7 +6,7 @@
         public string reference_code { get; set; }
         public string observation { get; set; }
         public string payment_form { get; set; }
-        public DateTime payment_due_date { get; set; }
+        public string payment_due_date { get; set; }
         public string payment_method_code { get; set; }
         public BillingPeriodDTO billing_period { get; set; }
         public CustomerDTO customer { get; set; }

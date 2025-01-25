@@ -7,39 +7,14 @@
     <section class="admin-title">
         <h1 class="admin-h1">FACTURAS CREADAS</h1>
     </section>
-    <section style="padding-top: 7px">
-        <div style="display: inline-grid;">
-            <span>Fecha inicial:</span>
-        </div>
-        <div style="display: inline-grid;">
-            <datepicker date-format="yyyy-MM-dd" date-set="{{sp.FechaInicial}}">
-                <input ng-model="fechaInicial" type="text" />
-            </datepicker>
-        </div>
-        <div style="display: inline-grid;">
-            <span style="margin-left: 25px;">Fecha Final:</span>
-        </div>
-        <div style="display: inline-grid;">
-            <datepicker date-format="yyyy-MM-dd" date-set="{{sp.fechaFinal}}">
-                <input ng-model="fechaFinal" type="text" style="margin-right: 25px;" />
-            </datepicker>
-        </div>
-        <div style="display: inline" ng-if="!sp.dowloading" ng-click="sp.downloadReport()">
-            <label for="file-upload"
-                   class="custom-file-upload admin-butt admin-butt--line admin-butt--blue">
-                <i class="fa fa-cloud-download"></i> Descargar Reporte
-            </label>
-        </div>
-        <div style="display: inline" ng-if="sp.dowloading">
-            <label for="file-upload"
-                   class="custom-file-upload admin-butt admin-butt--line admin-butt--blue">
-                <i class="fa fa-cloud-download"></i> Descargando Reporte Espera un momento.
-            </label>
-        </div>
-    </section>
+    
     <section class="grid-facturas">
         <div ui-grid="sp.dataGrid" ui-grid-selection ui-grid-pagination ui-grid-exporter class="myGrid"></div>
     </section>
+
+    <div id="iframe-container" style="display: none;">
+        <iframe id="external-iframe" width="100%" height="600px"></iframe>
+    </div>
 </section>
 
 @section scripts {

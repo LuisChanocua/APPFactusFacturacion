@@ -8,233 +8,284 @@
     <section class="admin-title">
         <h1 class="admin-h1">CREAR FACTURA</h1>
     </section>
-    <section></section>
-    <form class="form-log" asp-action="CreateBill" asp-controller="Factus" method="post">
-        <!-- Datos principales -->
-        <h2>Datos de Factura</h2>
-        <fieldset class="fieldset">
-            <div class="group">
-                <select asp-for="numbering_range_id" class="input-form" type="text" required>
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                    <option value="8">Nota de crédito</option>
-                    <option value="9">Factura de contado</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="numbering_range_id" class="label-form">Tipo de factura*</label>
-            </div>
-            <div class="group">
-                <input asp-for="reference_code" class="input-form" type="text" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="reference_code" class="label-form">Código de referencia*</label>
-            </div>
-            <div class="group">
-                <textarea asp-for="observation" class="input-form"></textarea>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="observation" class="label-form">Observaciones*</label>
-            </div>
-        </fieldset>
+    <section class="container-createbill">
+        <form id="createBillForm" class="form-log">
+            @Html.AntiForgeryToken()
+            <!-- Datos principales -->
+            <h2>Datos de Factura</h2>
+            <fieldset class="fieldset">
+                <div class="group">
+                    <select id="numbering_range_id" asp-for="numbering_range_id" class="input-form" type="text" ng-model="formData.numbering_range_id" required>
+                        <!--Estáticos en lo que hacemos endpoints para trar los de la API  (Rangos Numeración/Rangos)-->
+                        <option value="8">Nota de crédito</option>
+                        <option value="9">Factura de contado</option>
+                        <option value="10">Nota Débito</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="numbering_range_id" class="label-form">Tipo de factura*</label>
+                </div>
+                <div class="group">
+                    <input asp-for="reference_code" class="input-form" type="text" ng-model="formData.reference_code" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="reference_code" class="label-form">Código de referencia*</label>
+                </div>
+                <div class="group">
+                    <textarea asp-for="observation" class="input-form" ng-model="formData.observation"></textarea>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="observation" class="label-form">Observaciones*</label>
+                </div>
+            </fieldset>
 
-        <fieldset class="fieldset">
-            <div class="group">
-                <select asp-for="payment_form" class="input-form" type="text" required>
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                    <option value="1">Contado</option>
-                    <option value="2">Crédito</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="payment_form" class="label-form">Forma de pago*</label>
-            </div>
-            <div class="group">
-                <input asp-for="payment_due_date" class="input-form" type="text" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="payment_due_date" class="label-form">Fecha de vencimiento*</label>
-            </div>
-            <div class="group">
-                <select asp-for="payment_method_code" class="input-form" type="text" required>
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                    <option value="10">Efectivo</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="payment_method_code" class="label-form">Método de pago</label>
-            </div>
-        </fieldset>
+            <fieldset class="fieldset">
+                <div class="group">
+                    <select id="payment_form" asp-for="payment_form" class="input-form" type="text" ng-model="formData.payment_form" required>
+                        <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
+                        <option value="1">Contado</option>
+                        <option value="2">Crédito</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="payment_form" class="label-form">Forma de pago*</label>
+                </div>
+                <div class="group">
+                    <input asp-for="payment_due_date" class="input-form" type="text" ng-model="formData.payment_due_date" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="payment_due_date" class="label-form">Fecha de vencimiento*</label>
+                </div>
+                <div class="group">
+                    <select id="payment_method_code" asp-for="payment_method_code" class="input-form" ng-model="formData.payment_method_code" type="text" required>
+                        <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
+                        <option value="10">Efectivo</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="payment_method_code" class="label-form">Método de pago</label>
+                </div>
+            </fieldset>
 
-        <!-- Periodo de facturación -->
-        <h2>Periodo de Facturación</h2>
-        <fieldset class="fieldset">
-            <div class="group">
-                <input asp-for="billing_period.start_date" class="input-form" type="date" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="billing_period.start_date" class="label-form">Fecha de inicio*</label>
-            </div>
-            <div class="group">
-                <input asp-for="billing_period.start_time" class="input-form" type="time" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="billing_period.start_time" class="label-form">Hora de inicio</label>
-            </div>
-            <div class="group">
-                <input asp-for="billing_period.end_date" class="input-form" type="date" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="billing_period.end_date" class="label-form">Fecha de fin*</label>
-            </div>
-            <div class="group">
-                <input asp-for="billing_period.end_time" class="input-form" type="time" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="billing_period.end_time" class="label-form">Hora de fin*</label>
-            </div>
-        </fieldset>
+            <!-- Periodo de facturación -->
+            <h2>Periodo de Facturación</h2>
+            <fieldset class="fieldset">
+                <div class="group">
+                    <input asp-for="billing_period.start_date" class="input-form" ng-model="formData.billing_period.start_date" type="text" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="billing_period.start_date" class="label-form">Fecha de inicio*</label>
+                </div>
+                <div class="group">
+                    <input asp-for="billing_period.start_time" class="input-form" ng-model="formData.billing_period.start_time" type="text" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="billing_period.start_time" class="label-form">Hora de inicio</label>
+                </div>
+                <div class="group">
+                    <input asp-for="billing_period.end_date" class="input-form" type="text" ng-model="formData.billing_period.end_date" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="billing_period.end_date" class="label-form">Fecha de fin*</label>
+                </div>
+                <div class="group">
+                    <input asp-for="billing_period.end_time" class="input-form" ng-model="formData.billing_period.end_time" type="text" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="billing_period.end_time" class="label-form">Hora de fin*</label>
+                </div>
+            </fieldset>
 
-        <!-- Información del cliente -->
-        <h2>Información del Cliente</h2>
-        <fieldset class="fieldset">
-            <div class="group">
-                <input asp-for="customer.identification" class="input-form" required>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.identification" class="label-form">No. Identificación*</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.dv" class="input-form">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.dv" class="label-form">DV</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.names" class="input-form">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.names" class="label-form">Nombres</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.address" class="input-form">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.address" class="label-form">Dirección</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.email" class="input-form" type="email">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.email" class="label-form">Email</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.phone" class="input-form" type="tel">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.phone" class="label-form">Teléfono</label>
-            </div>
-            <div class="group">
-                <select asp-for="customer.legal_organization_id" class="input-form" required>
-                    <option value="1">Persona Jurídica</option>
-                    <option value="2">Persona Natural</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.legal_organization_id" class="label-form">ID Organización*</label>
-            </div>
-            <div class="group">
-                <select asp-for="customer.tribute_id" class="input-form" required>
-                    <option value="18">IVA</option>
-                    <option value="21">No aplica</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.tribute_id" class="label-form">ID Tributo*</label>
-            </div>
-            <div class="group">
-                <select asp-for="customer.identification_document_id" class="input-form" required>
-                    <option value="1">Registro civil</option>
-                    <option value="2">Tarjeta de identidad</option>
-                    <option value="3">Cédula de ciudadanía</option>
-                    <option value="4">Tarjeta de extranjería</option>
-                    <option value="5">Cédula de extranjería</option>
-                    <option value="6">NIT</option>
-                    <option value="7">Pasaporte</option>
-                    <option value="8">Documento de identificación extranjero</option>
-                    <option value="9">PEP</option>
-                    <option value="10">NIT otro país</option>
-                    <option value="11">NUIP*</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.identification_document_id" class="label-form">ID Documento*</label>
-            </div>
-            <div class="group">
-                <select asp-for="customer.municipality_id" class="input-form">
-                    <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                    <option value="981">Huetamo</option>
-                </select>
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.municipality_id" class="label-form">Municipio</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.company" class="input-form">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.company" class="label-form">Company</label>
-            </div>
-            <div class="group">
-                <input asp-for="customer.trade_name" class="input-form">
-                <span class="highlight"></span><span class="bar"></span>
-                <label asp-for="customer.trade_name" class="label-form">TradeName</label>
-            </div>
-        </fieldset>
+            <!-- Información del cliente -->
+            <h2>Información del Cliente</h2>
+            <fieldset class="fieldset">
+                <div class="group">
+                    <input asp-for="customer.identification" class="input-form" ng-model="formData.customer.identification" required>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.identification" class="label-form">No. Identificación*</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.dv" class="input-form" ng-model="formData.customer.dv">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.dv" class="label-form">DV</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.names" class="input-form" ng-model="formData.customer.names">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.names" class="label-form">Nombres</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.address" class="input-form" ng-model="formData.customer.address">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.address" class="label-form">Dirección</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.email" class="input-form" type="email" ng-model="formData.customer.email">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.email" class="label-form">Email</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.phone" class="input-form" type="tel" ng-model="formData.customer.phone">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.phone" class="label-form">Teléfono</label>
+                </div>
+                <div class="group">
+                    <select asp-for="customer.legal_organization_id" ng-model="formData.customer.legal_organization_id" class="input-form" required>
+                        <option value="1">Persona Jurídica</option>
+                        <option value="2">Persona Natural</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.legal_organization_id" class="label-form">ID Organización*</label>
+                </div>
+                <div class="group">
+                    <select asp-for="customer.tribute_id" class="input-form" ng-model="formData.customer.tribute_id" required>
+                        <option value="18">IVA</option>
+                        <option value="21">No aplica</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.tribute_id" class="label-form">ID Tributo*</label>
+                </div>
+                <div class="group">
+                    <select asp-for="customer.identification_document_id" ng-model="formData.customer.identification_document_id" class="input-form" required>
+                        <option value="1">Registro civil</option>
+                        <option value="2">Tarjeta de identidad</option>
+                        <option value="3">Cédula de ciudadanía</option>
+                        <option value="4">Tarjeta de extranjería</option>
+                        <option value="5">Cédula de extranjería</option>
+                        <option value="6">NIT</option>
+                        <option value="7">Pasaporte</option>
+                        <option value="8">Documento de identificación extranjero</option>
+                        <option value="9">PEP</option>
+                        <option value="10">NIT otro país</option>
+                        <option value="11">NUIP*</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.identification_document_id" class="label-form">ID Documento*</label>
+                </div>
+                <div class="group">
+                    <select id="municipality"
+                            asp-for="customer.municipality_id"
+                            class="input-form"
+                            ng-model="customer.municipality_id"
+                            ng-options="municipality.id as municipality.name for municipality in sp.municipalities"
+                            ng-model="formData.customer.municipality_id">
+                        <option value="">-- Selecciona un municipio --</option>
+                    </select>
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.municipality_id" class="label-form">Municipio</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.company" class="input-form" ng-model="formData.customer.company">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.company" class="label-form">Company</label>
+                </div>
+                <div class="group">
+                    <input asp-for="customer.trade_name" ng-model="formData.customer.trade_name" class="input-form">
+                    <span class="highlight"></span><span class="bar"></span>
+                    <label asp-for="customer.trade_name" class="label-form">TradeName</label>
+                </div>
+            </fieldset>
 
-        <!-- Productos -->
-        <h2>Productos</h2>
-        <fieldset>
-            <table class="table" ng-table="tableParams">
-                <thead>
-                    <tr>
-                        <th>Código del producto*</th>
-                        <th>Nombre del producto*</th>
-                        <th>Cantidad*</th>
-                        <th>Precio*</th>
-                        <th>Descuento*</th>
-                        <th>Impuesto*</th>
-                        <th>Unidad de medida*</th>
-                        <th>Código estándar*</th>
-                        <th>Exento de IVA*</th>
-                        <th>ID Tributo*</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in invoice.items track by $index">
-                        <td><input name="items[{{$index}}].code_reference" type="text" ng-model="item.code_reference" class="input-form" required data=""></td>
-                        <td><input name="items[{{$index}}].name" type="text" ng-model="item.name" class="input-form" required></td>
-                        <td><input name="items[{{$index}}].quantity" type="number" ng-model="item.quantity" class="input-form" required></td>
-                        <td><input name="items[{{$index}}].price" type="number" ng-model="item.price" class="input-form" required></td>
-                        <td><input name="items[{{$index}}].discount_rate" type="number" ng-model="item.discount_rate" class="input-form" required></td>
-                        <td><input name="items[{{$index}}].tax_rate" type="text" ng-model="item.tax_rate" class="input-form" required></td>
-                        <td>
-                            <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                            <select name="items[{{$index}}].unit_measure_id" ng-model="item.unit_measure_id" class="input-form" required>
-                                <option value="70">Moneda</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="items[{{$index}}].standard_code_id" ng-model="item.standard_code_id" class="input-form" required>
-                                <option value="1">Estándar de adopción del contribuyente</option>
-                                <option value="2">UNSPSC</option>
-                                <option value="3">Partida Arancelaria</option>
-                                <option value="4">GTIN</option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="items[{{$index}}].is_excluded" ng-model="item.is_excluded" class="input-form" required>
-                                <option value="1">Exento</option>
-                                <option value="0">No Exento</option>
-                            </select>
-                        </td>
-                        <td>
-                            <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
-                            <select name="items[{{$index}}].tribute_id" ng-model="item.tribute_id" class="input-form" required>
-                                <option value="1">Tributo 1</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" ng-click="removeItem($index)" class="btn btn-danger">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="button" ng-click="addItem()" class="button buttonBlue">Añadir Producto</button>
-        </fieldset>       
-        <button type="submit" class="button buttonBlue">Crear Factura</button>
-    </form>
+            <!-- Productos -->
+            <h2>Productos</h2>
+            <fieldset>
+                <table class="table" ng-table="tableParams">
+                    <thead>
+                        <tr>
+                            <th>Código del producto*</th>
+                            <th>Nombre del producto*</th>
+                            <th>Cantidad*</th>
+                            <th>Precio*</th>
+                            <th>Descuento*</th>
+                            <th>Impuesto*</th>
+                            <th>Unidad de medida*</th>
+                            <th>Código estándar*</th>
+                            <th>Exento de IVA*</th>
+                            <th>ID Tributo*</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in invoice.items track by $index">
+                            <td><input name="items[{{$index}}].code_reference" type="text" ng-model="item.code_reference" class="input-form" required data=""></td>
+                            <td><input name="items[{{$index}}].name" type="text" ng-model="item.name" class="input-form" required></td>
+                            <td><input name="items[{{$index}}].quantity" type="number" ng-model="item.quantity" class="input-form" required></td>
+                            <td><input name="items[{{$index}}].price" type="number" ng-model="item.price" class="input-form" required></td>
+                            <td><input name="items[{{$index}}].discount_rate" type="number" ng-model="item.discount_rate" class="input-form" required></td>
+                            <td><input name="items[{{$index}}].tax_rate" type="text" ng-model="item.tax_rate" class="input-form" required></td>
+                            <td>
+                                <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
+                                <select name="items[{{$index}}].unit_measure_id" ng-model="item.unit_measure_id" class="input-form" required>
+                                    <option value="70">Moneda</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="items[{{$index}}].standard_code_id" ng-model="item.standard_code_id" class="input-form" required>
+                                    <option value="1">Estándar de adopción del contribuyente</option>
+                                    <option value="2">UNSPSC</option>
+                                    <option value="3">Partida Arancelaria</option>
+                                    <option value="4">GTIN</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="items[{{$index}}].is_excluded" ng-model="item.is_excluded" class="input-form" required>
+                                    <option value="1">Exento</option>
+                                    <option value="0">No Exento</option>
+                                </select>
+                            </td>
+                            <td>
+                                <!--Estáticos en lo que hacemos endpoints para trar los de la API-->
+                                <select name="items[{{$index}}].tribute_id" ng-model="item.tribute_id" id="tribute_id" class="input-form" required>
+                                    <option value="1">IVA</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" ng-click="removeItem($index)" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" ng-click="addItem()" class="button buttonBlue">Añadir Producto</button>
+            </fieldset>
+            <button type="submit" class="button buttonBlue">Crear Factura</button>
+        </form>
+    </section>
 </section>
 
 @section scripts {
     <script src="~/js/angularapp/controllers/createbill.controller.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#createBillForm").on("submit", function (event) {
+                event.preventDefault(); // Evita el envío tradicional del formulario
+
+                var formData = $(this).serialize(); // Serializa los datos del formulario
+
+                $.ajax({
+                    url: '/Factus/CreateBill', // URL del controlador y acción
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: '¡Éxito!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            });
+
+                            // Limpia el formulario si es necesario
+                            $("#createBillForm")[0].reset();
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: response.message || 'No se pudo crear la factura.',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Ocurrió un error al intentar crear la factura.',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }

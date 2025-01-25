@@ -1,7 +1,10 @@
 ﻿.myGrid {
-    height: 50% !important;
 }
 
 .grid-facturas {
     height: 100%;
+}
+
+.button-verfactura{
+    color: white;
 }

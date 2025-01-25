@@ -14,19 +14,24 @@ using APPFactusFacturacion.DTOS.factus_request;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using APPFactusFacturacion.DTOS.models;
+using APPFactusFacturacion.DTOS;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace APPFactusFacturacion.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IFactusAuth _factusService;
+        private readonly IFactus _factusService;
+        private readonly IHome _homeService;
 
-        public HomeController(ILogger<HomeController> logger, IFactusAuth factusService)
+        public HomeController(ILogger<HomeController> logger, IFactus factusService, IHome homeService)
         {
             _logger = logger;
             _factusService = factusService;
+            _homeService = homeService;
         }
 
         #region VIEWS
@@ -48,6 +53,17 @@ namespace APPFactusFacturacion.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region APIS
+        
+        [HttpGet]
+        public async Task<IActionResult> GetBills()
+        {
+            var bills = await _homeService.GetBills();
+            return Json(bills);
+        }
+
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

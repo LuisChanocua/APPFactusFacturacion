@@ -5,9 +5,9 @@ namespace APPFactusFacturacion.Services
 {
     public class AuthenticatedHttpClientHandlerService : DelegatingHandler
     {
-        private readonly IFactusAuth _authService;
+        private readonly IFactus _authService;
 
-        public AuthenticatedHttpClientHandlerService(IFactusAuth authService)
+        public AuthenticatedHttpClientHandlerService(IFactus authService)
         {
             _authService = authService;
         }
